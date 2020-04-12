@@ -13,6 +13,7 @@ export default function Home() {
 }
 
 const Wrapper = styled.div`
+  font-size: 3rem;
   min-height: 100vh;
   padding: 10rem 40rem;
   background-color: Azure;
