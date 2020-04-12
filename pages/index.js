@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import LoginForm from "../src/components/login-form";
+import VoteForm from "../src/components/vote-form";
 
 export default function Home() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   return (
     <Wrapper>
       리액트 투-표
-      <LoginForm />
+      {!loggedIn && <LoginForm loginSuccess={setLoggedIn} />}
+      {loggedIn && <VoteForm />}
     </Wrapper>
   );
 }

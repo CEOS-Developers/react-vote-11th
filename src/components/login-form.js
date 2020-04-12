@@ -2,38 +2,55 @@ import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
-export default function LoginForm() {
+export default function LoginForm(props) {
   //State에 로그인에 필요한 데이터 저장
-  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [userData, setUserData] = useState({
+    email: "example@ceos.or.kr",
+    password: "example1!",
+  });
+  const { loginSuccess } = props;
   // 변수 이름 쉽게하기 위해
-  const { email, password } = loginData;
+  const { email, password } = userData;
 
   const checkBlank = () => {
     // 둘 중 하나라도 안 채워져 있을시 알림
     if (email === "" || password === "") {
-      alert("빈칸채워주세요!!");
+      alert("빈칸 채워주세요!!");
       return false;
     } else {
-      alert("로그인 화면으로 이동해야하는데 아직 라우팅 방법을 모릅니다");
       return true;
     }
   };
+
   // 로그인 시도 함수
   const tryLogin = () => {
-    if (checkBlank === false) {
+    if (checkBlank() === false) {
       console.log("실패");
       return;
     }
+    axios
+      .post(process.env.API_HOST + "/auth/signin/", {
+        email: email,
+        password: password,
+      })
+      .then(function (response) {
+        alert("로그인 되었습니다!");
+        loginSuccess(true);
+        console.log(response);
+      })
+      .catch(function (error) {
+        alert("아이디나 비밀번호 확인해주세요!");
+        console.log(error);
+      });
   };
 
   // 값이 변경될 때
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    setLoginData({
-      ...loginData,
+    setUserData({
+      ...userData,
       [name]: value,
     });
-    console.log(name, value);
   };
 
   return (
