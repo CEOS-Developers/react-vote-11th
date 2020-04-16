@@ -22,7 +22,7 @@ export default function LoginForm(props) {
     }
   };
 
-  // 로그인 시도 함수
+  // 로그인 시도
   const tryLogin = () => {
     if (checkBlank() === false) {
       console.log("실패");
