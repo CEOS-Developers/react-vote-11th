@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Memo } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -34,13 +34,16 @@ export default function LoginForm(props) {
         password: password,
       })
       .then(function (response) {
-        alert("로그인 되었습니다!");
+        alert("로그인에 성공하셨습니다!!!");
         loginSuccess(true);
         console.log(response);
       })
       .catch(function (error) {
-        alert("아이디나 비밀번호 확인해주세요!");
-        console.log(error);
+        alert("아이디 혹은 비밀번호를 확인해주세요!!!");
+        setUserData({
+          email: "",
+          password: "",
+        });
       });
   };
 
@@ -64,10 +67,14 @@ export default function LoginForm(props) {
         <InputLabel>PASSWORD</InputLabel>
         <DataInput name="password" type="password" value={password} onChange={handleFormChange} />
       </InputWrapper>
-      <LoginBtn onClick={tryLogin}>로그인</LoginBtn>
+      <LoginBtn onClick={tryLogin} type="submit">
+        로그인
+      </LoginBtn>
     </Wrapper>
   );
 }
+
+export const MemoizedLoginForm = React.memo(LoginForm);
 
 const Wrapper = styled.div`
   width: 100%;

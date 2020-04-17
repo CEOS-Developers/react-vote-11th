@@ -4,15 +4,17 @@ import styled from "styled-components";
 import CandidateForm from "./candidate-form";
 
 export default function VoteForm() {
-  const [candidates, setCandidates] = useState(null);
+  const [candidateList, setCandidateList] = useState(null);
 
-  //useEffect는 렌더링 될때마다 실행, [] 인자에는 바뀔 떄마다 렌더링할 변수가 들어간다
+  // useEffect는 렌더링 될때마다 실행, [] 인자에는 바뀔 떄마다 렌더링할 변수가 들어간다
+  // candidates의 값이 바뀔 때마다 렌더링한다.
   useEffect(() => {
-    takeCandidates();
-  }, []);
-  console.log(takeCandidates);
+    takeCandidateList();
+  }, [candidateList]);
+
   // axois에서 후보자 명단 받아온다.
-  const takeCandidates = async () => {
+
+  const takeCandidateList = async () => {
     const data = await axios
       .get(process.env.API_HOST + "/candidates/", {
         params: {},
@@ -26,34 +28,35 @@ export default function VoteForm() {
       .finally(function () {
         // always executed
       });
-    setCandidates(data);
+    setCandidateList(data);
   };
-  if (candidates) {
-    return (
-      <Wrapper>
-        <p>
-          <RedText>프론트앤드 개발자</RedText> 인기 투표!
-        </p>
-        <p>CEOS 프론트엔드 개발자 인기 순위 및 투표 창입니다.</p>
-        <CandidatesList>
-          {candidates
+  // candidates값이 null이 아니면
+
+  return (
+    <Wrapper>
+      <Title1>
+        <RedText>프론트앤드 인기쟁이</RedText>는 누구?
+      </Title1>
+      <Title2>CEOS 프론트엔드 개발자 인기 순위 및 투표 창입니다.</Title2>
+      {candidateList !== null && (
+        <CandidateListWrapper>
+          {candidateList
             .sort((a, b) => {
-              console.log(candidates.indexOf(a));
               return b.voteCount - a.voteCount;
             })
             .map((candidate) => (
               <CandidateForm
-                key={candidate.id}
-                rank={candidates.indexOf(candidate) + 1}
+                key={candidate._id}
+                id={candidate._id}
+                rank={candidateList.indexOf(candidate) + 1}
                 name={candidate.name}
                 voteCount={candidate.voteCount}
               />
             ))}
-        </CandidatesList>
-      </Wrapper>
-    );
-  }
-  return <></>;
+        </CandidateListWrapper>
+      )}
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.div`
@@ -63,12 +66,22 @@ const Wrapper = styled.div`
   font-size: 18px;
   padding: 3rem 4rem;
 `;
+const Title1 = styled.p`
+  font-size: 30px;
+  font-weight: bolder;
+`;
+
+const Title2 = styled.p`
+  font-size: 26px;
+  font-weight: bolder;
+  color: grey;
+`;
 
 const RedText = styled.span`
   color: red;
 `;
 
-const CandidatesList = styled.div`
+const CandidateListWrapper = styled.div`
   padding: 5rem 10rem;
   border: 1px solid black;
 `;
