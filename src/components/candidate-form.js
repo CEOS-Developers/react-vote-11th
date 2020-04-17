@@ -31,7 +31,7 @@ export default function CandidateForm(props) {
 
       <VoteBtn
         onClick={() => {
-          alert(name, "님에게 투표 완료!");
+          alert(name + "님에게 투표 완료!");
           voteCandidate();
         }}
       >

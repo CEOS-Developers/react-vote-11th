@@ -59,6 +59,8 @@ export default function VoteForm() {
   );
 }
 
+export const MemoizedVoteForm = React.memo(VoteForm);
+
 const Wrapper = styled.div`
   width: 100%;
   min-height: 30rem;

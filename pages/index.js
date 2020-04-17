@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { MemoizedLoginForm } from "../src/components/login-form";
-import VoteForm from "../src/components/vote-form";
+import { MemoizedVoteForm } from "../src/components/vote-form";
 
 export default function Home() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -11,7 +11,7 @@ export default function Home() {
     <Wrapper>
       <Title>리액트 투-표</Title>
       {!loggedIn && <MemoizedLoginForm loginSuccess={setLoggedIn} />}
-      {loggedIn && <VoteForm />}
+      {loggedIn && <MemoizedVoteForm />}
     </Wrapper>
   );
 }

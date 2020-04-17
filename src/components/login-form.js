@@ -1,12 +1,12 @@
-import React, { useState, Memo } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
 export default function LoginForm(props) {
   //State에 로그인에 필요한 데이터 저장
   const [userData, setUserData] = useState({
-    email: "example@ceos.or.kr",
-    password: "example1!",
+    email: "",
+    password: "",
   });
   const { loginSuccess } = props;
   // 변수 이름 쉽게하기 위해
