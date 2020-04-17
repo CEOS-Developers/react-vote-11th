@@ -2,8 +2,39 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
-import List from "../components/vote-list";
-export default function VoteForm({ candidates }) {
+import List from "./vote-list";
+export default function VoteForm() {
+  const [candidates, setCandidateList] = useState([]);
+  useEffect(() => {
+    getCandidateList();
+  }, []);
+  const getCandidateList = async () => {
+    await axios
+      .get(process.env.API_HOST + "/candidates/", candidates)
+      .then(({ data }) => {
+        setCandidateList(data);
+        console.log(candidates);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  const Vote = (candidate) => {
+    axios
+      .put(
+        process.env.API_HOST + "/candidates/" + candidate.id + "/vote/",
+        voteCount
+      )
+      .then(({ data }) => {
+        alert(candidate.name + "님께 투표했습니다!");
+        getCandidates();
+      })
+      .catch(function (error) {
+        console.log(error);
+        alert("실패했습니다!");
+      });
+  };
+  let i = 1;
   return (
     <Wrapper>
       <Title>
@@ -11,13 +42,19 @@ export default function VoteForm({ candidates }) {
       </Title>
       <Desc>CEOS 프론트엔드 개발자 인기순위 및 투표창입니다.</Desc>
       <VoteSection>
-        {/* {candidates
+        {candidates
           .sort((a, b) => {
-            return a.voteCount - b.voteCount;
+            return b.voteCount - a.voteCount;
           })
           .map((candidate) => (
-            <List key={candidate.id} {...candidate} />
-          ))} */}
+            <List
+              key={candidate._id}
+              id={candidate._id}
+              i={i++}
+              {...candidate}
+              getCandidateList={getCandidateList}
+            />
+          ))}
       </VoteSection>
     </Wrapper>
   );
