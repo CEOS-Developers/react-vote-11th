@@ -39,11 +39,25 @@ export default function LoginForm(props) {
         console.log(response);
       })
       .catch(function (error) {
-        alert("아이디 혹은 비밀번호를 확인해주세요!!!");
-        setUserData({
-          email: "",
-          password: "",
-        });
+        if (error.response.status === 404) {
+          alert("이메일이 존재하지 않습니다!!!");
+          setUserData({
+            email: "",
+            password: "",
+          });
+        } else if (error.response.status === 422) {
+          alert("비밀번호가 틀렸습니다!!!");
+          setUserData({
+            email: email,
+            password: "",
+          });
+        } else {
+          alert("다시 시도해주세요!");
+          setUserData({
+            email: "",
+            password: "",
+          });
+        }
       });
   };
 
