@@ -15,7 +15,7 @@ export default function VoteList({ name, voteCount, id, i, getCandidateList }) {
       })
       .catch(function (error) {
         console.log(error);
-        alert("실패했습니다!");
+        alert("투표 실패했습니다!");
       });
   };
 

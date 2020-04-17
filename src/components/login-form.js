@@ -65,7 +65,7 @@ export default function LoginForm({ isLoggedIn, setLoginStatus, loginCheck }) {
     </Wrapper>
   );
 }
-
+export const MemoizedLoginForm = React.memo(LoginForm);
 const Wrapper = styled.div`
   width: 100%;
   min-height: 30rem;

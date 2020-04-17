@@ -59,6 +59,8 @@ export default function VoteForm() {
     </Wrapper>
   );
 }
+export const MemoizedVoteForm = React.memo(VoteForm);
+
 const Title = styled.h2``;
 const RedTitle = styled.strong`
   color: red;

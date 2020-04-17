@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
-import LoginForm from "../src/components/login-form";
-import VoteForm from "../src/components/vote-form";
+import MemorizedLoginForm from "../src/components/login-form";
+import MemorizedVoteForm from "../src/components/vote-form";
 
 export default function Home() {
   const [isLoggedIn, setLoginStatus] = useState(false);
@@ -12,10 +12,13 @@ export default function Home() {
     console.log("login check start");
     if (isLoggedIn) {
       console.log("dd");
-      return <VoteForm />;
+      return <MemorizedVoteForm />;
     } else {
       return (
-        <LoginForm isLoggedIn={isLoggedIn} setLoginStatus={setLoginStatus} />
+        <MemorizedLoginForm
+          isLoggedIn={isLoggedIn}
+          setLoginStatus={setLoginStatus}
+        />
       );
     }
   };
@@ -23,8 +26,7 @@ export default function Home() {
   return (
     <Wrapper>
       <Title>리액트 투-표</Title>
-      {/* {loginCheck()} */}
-      <VoteForm />
+      {loginCheck()}
     </Wrapper>
   );
 }
