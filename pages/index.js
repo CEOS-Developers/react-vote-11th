@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 
 import LoginForm from "../src/components/login-form";
 import VoteForm from "../src/components/vote-form";
+
+import styled from "styled-components";
 
 export default function Home() {
   const [login, setLogin] = useState(false);
@@ -10,8 +11,8 @@ export default function Home() {
   return (
     <Wrapper>
       <Header>리액트 투-표</Header>
-      {!login && <LoginForm loginAccess={setLogin} />}
-      {login && <VoteForm />}
+      {login && <LoginForm loginAccess={setLogin} />}
+      {!login && <VoteForm />}
     </Wrapper>
   );
 }
