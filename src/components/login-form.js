@@ -29,10 +29,7 @@ export default function LoginForm(props) {
       return;
     }
     axios
-      .post(process.env.API_HOST + "/auth/signin/", {
-        email: email,
-        password: password,
-      })
+      .post(process.env.API_HOST + "/auth/signin/", userData)
       .then(function (response) {
         alert("로그인에 성공하셨습니다!!!");
         loginSuccess(true);
