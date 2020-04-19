@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import CandidateForm from "./candidate-form";
 
-export default function VoteForm() {
+function VoteForm() {
   const [candidateList, setCandidateList] = useState(null);
 
   // useEffect는 렌더링 될때마다 실행, [] 인자에는 바뀔 떄마다 렌더링할 변수가 들어간다
@@ -59,7 +59,7 @@ export default function VoteForm() {
   );
 }
 
-export const MemoizedVoteForm = React.memo(VoteForm);
+export default React.memo(VoteForm);
 
 const Wrapper = styled.div`
   width: 100%;

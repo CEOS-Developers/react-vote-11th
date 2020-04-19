@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
-export default function LoginForm(props) {
+function LoginForm(props) {
   //State에 로그인에 필요한 데이터 저장
   const [userData, setUserData] = useState({
     email: "",
@@ -22,6 +22,26 @@ export default function LoginForm(props) {
     }
   };
 
+  const initFormData = (status) => {
+    const initializedUserData = {
+      email: "",
+      password: "",
+    };
+
+    switch (status) {
+      case 404:
+        alert("이메일이 존재하지 않습니다!!!");
+        break;
+      case 422:
+        alert("비밀번호가 틀렸습니다!!!");
+        initializedUserData.email = email;
+        break;
+      default:
+        alert("로그인을 다시 시도해주세요!");
+    }
+
+    setUserData(initializedUserData);
+  };
   // 로그인 시도
   const tryLogin = () => {
     if (checkBlank() === false) {
@@ -36,25 +56,7 @@ export default function LoginForm(props) {
         console.log(response);
       })
       .catch(function (error) {
-        if (error.response.status === 404) {
-          alert("이메일이 존재하지 않습니다!!!");
-          setUserData({
-            email: "",
-            password: "",
-          });
-        } else if (error.response.status === 422) {
-          alert("비밀번호가 틀렸습니다!!!");
-          setUserData({
-            email: email,
-            password: "",
-          });
-        } else {
-          alert("다시 시도해주세요!");
-          setUserData({
-            email: "",
-            password: "",
-          });
-        }
+        initFormData(error.response.status);
       });
   };
 
@@ -84,7 +86,7 @@ export default function LoginForm(props) {
     </Wrapper>
   );
 }
-
+export default React.memo(LoginForm);
 export const MemoizedLoginForm = React.memo(LoginForm);
 
 const Wrapper = styled.div`
