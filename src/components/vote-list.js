@@ -5,7 +5,7 @@ import axios from "axios";
 export default function VoteList({ name, voteCount, id, i, getCandidateList }) {
   const handleVote = () => {
     axios
-      .put(process.env.API_HOST + "/candidates/" + id + "/vote/", {
+      .put(process.env.API_HOST + `/candidates/${id}/vote/`, {
         params: {},
       })
       .then(function (response) {
@@ -24,13 +24,7 @@ export default function VoteList({ name, voteCount, id, i, getCandidateList }) {
       <Candidate>
         <Rank>{i}위:</Rank> {name} [{voteCount}]표
       </Candidate>
-      <VoteButton
-        onClick={() => {
-          handleVote();
-        }}
-      >
-        투표
-      </VoteButton>
+      <VoteButton onClick={handleVote}>투표</VoteButton>
     </Wrapper>
   );
 }
