@@ -5,13 +5,13 @@ import { MemoizedLoginForm } from "../src/components/login-form";
 import { MemoizedVoteForm } from "../src/components/vote-form";
 
 export default function Home() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <Wrapper>
       <Title>리액트 투-표</Title>
-      {!loggedIn && <MemoizedLoginForm loginSuccess={setLoggedIn} />}
-      {loggedIn && <MemoizedVoteForm />}
+      {!isLoggedIn && <MemoizedLoginForm loginSuccess={setIsLoggedIn} />}
+      {isLoggedIn && <MemoizedVoteForm />}
     </Wrapper>
   );
 }
