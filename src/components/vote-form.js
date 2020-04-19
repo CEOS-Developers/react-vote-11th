@@ -3,24 +3,12 @@ import styled from "styled-components";
 import axios from "axios";
 
 import CandidateCard from "./vote-list";
-export default function VoteForm() {
-  const [candidates, setCandidateList] = useState([]);
-  useEffect(() => {
-    getCandidateList();
-  }, []);
-  const getCandidateList = async () => {
-    await axios
-      .get(process.env.API_HOST + "/candidates/", candidates)
-      .then(({ data }) => {
-        setCandidateList(data);
-        console.log(candidates);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+import { useCandidates } from "../hooks/Candidates";
 
-  let i = 1;
+export default function VoteForm() {
+  const { candidates, loading, error, fetchData } = useCandidates();
+  console.log(candidates);
+
   return (
     <Wrapper>
       <Title>
@@ -28,20 +16,22 @@ export default function VoteForm() {
       </Title>
       <SubTitle>CEOS 프론트엔드 개발자 인기순위 및 투표창입니다.</SubTitle>
       <VoteSection>
-        {candidates
-          .sort((a, b) => {
-            return b.voteCount - a.voteCount;
-          })
-          .map((candidate, index) => {
-            const { _id: id } = candidate;
-            return (
-              <CandidateCard
-                key={id}
-                {...candidate}
-                {...{ getCandidateList }}
-              />
-            );
-          })}
+        {candidates &&
+          candidates
+            .sort((a, b) => {
+              return b.voteCount - a.voteCount;
+            })
+            .map((candidate, index) => {
+              const { _id: id } = candidate;
+              return (
+                <CandidateCard
+                  rank={index + 1}
+                  key={id}
+                  {...candidate}
+                  getCandidateList={fetchData}
+                />
+              );
+            })}
       </VoteSection>
     </Wrapper>
   );

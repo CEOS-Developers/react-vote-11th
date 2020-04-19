@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
-export default function VoteList({ name, voteCount, id, i, getCandidateList }) {
+export default function VoteList({
+  name,
+  voteCount,
+  _id: id,
+  rank,
+  getCandidateList,
+}) {
   const handleVote = () => {
     axios
       .put(process.env.API_HOST + `/candidates/${id}/vote/`, {
@@ -22,7 +28,7 @@ export default function VoteList({ name, voteCount, id, i, getCandidateList }) {
   return (
     <Wrapper>
       <Candidate>
-        <Rank>{i}위:</Rank> {name} [{voteCount}]표
+        <Rank>{rank}위:</Rank> {name} [{voteCount}]표
       </Candidate>
       <VoteButton onClick={handleVote}>투표</VoteButton>
     </Wrapper>

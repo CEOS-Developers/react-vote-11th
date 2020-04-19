@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
-export default function LoginForm({ isLoggedIn, setIsLoggedIn, loginCheck }) {
+export default function LoginForm({ setIsLoggedIn }) {
   const [form, setForm] = useState({ email: "", password: "" });
 
   const handleFormChange = (e) => {
@@ -30,7 +30,6 @@ export default function LoginForm({ isLoggedIn, setIsLoggedIn, loginCheck }) {
         console.log(response);
         alert("로그인 성공!");
         setIsLoggedIn(true);
-        console.log(isLoggedIn);
       })
       .catch(function (error) {
         resetForm();
