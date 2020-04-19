@@ -38,23 +38,15 @@ function VoteForm() {
         <RedText>프론트앤드 인기쟁이</RedText>는 누구?
       </Title1>
       <Title2>CEOS 프론트엔드 개발자 인기 순위 및 투표 창입니다.</Title2>
-      {candidateList !== null && (
-        <CandidateListWrapper>
-          {candidateList
-            .sort((a, b) => {
-              return b.voteCount - a.voteCount;
-            })
-            .map((candidate) => (
-              <CandidateForm
-                key={candidate._id}
-                id={candidate._id}
-                rank={candidateList.indexOf(candidate) + 1}
-                name={candidate.name}
-                voteCount={candidate.voteCount}
-              />
-            ))}
-        </CandidateListWrapper>
-      )}
+      <CandidateListWrapper>
+        {candidateList &&
+          candidateList
+            .sort((a, b) => b.voteCount - a.voteCount)
+            .map((candidate, index) => {
+              const { _id: id, name, voteCount } = candidate;
+              return <CandidateForm key={id} rank={index + 1} {...{ name, voteCount, id }} />;
+            })}
+      </CandidateListWrapper>
     </Wrapper>
   );
 }
