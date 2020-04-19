@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
-import List from "./vote-list";
+import CandidateCard from "./vote-list";
 export default function VoteForm() {
   const [candidates, setCandidateList] = useState([]);
   useEffect(() => {
@@ -38,23 +38,24 @@ export default function VoteForm() {
   return (
     <Wrapper>
       <Title>
-        <RedTitle>프론트엔드 인기쟁이</RedTitle>는 누구?
+        <Red>프론트엔드 인기쟁이</Red>는 누구?
       </Title>
-      <Desc>CEOS 프론트엔드 개발자 인기순위 및 투표창입니다.</Desc>
+      <SubTitle>CEOS 프론트엔드 개발자 인기순위 및 투표창입니다.</SubTitle>
       <VoteSection>
         {candidates
           .sort((a, b) => {
             return b.voteCount - a.voteCount;
           })
-          .map((candidate) => (
-            <List
-              key={candidate._id}
-              id={candidate._id}
-              i={i++}
-              {...candidate}
-              getCandidateList={getCandidateList}
-            />
-          ))}
+          .map((candidate, index) => {
+            const { _id: id } = candidate;
+            return (
+              <CandidateCard
+                key={id}
+                {...candidate}
+                {...{ getCandidateList }}
+              />
+            );
+          })}
       </VoteSection>
     </Wrapper>
   );
@@ -62,10 +63,10 @@ export default function VoteForm() {
 export const MemoizedVoteForm = React.memo(VoteForm);
 
 const Title = styled.h2``;
-const RedTitle = styled.strong`
+const Red = styled.strong`
   color: red;
 `;
-const Desc = styled.h3`
+const SubTitle = styled.h3`
   color: grey;
 `;
 const VoteSection = styled.div`
