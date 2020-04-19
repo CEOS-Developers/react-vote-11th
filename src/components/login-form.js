@@ -11,7 +11,7 @@ export default function LoginForm({ isLoggedIn, setIsLoggedIn, loginCheck }) {
       [e.target.name]: e.target.value,
     });
   };
-  const initForm = () => {
+  const resetForm = () => {
     setForm({ email: "", password: "" });
   };
   const validCheck = () => {
@@ -33,7 +33,7 @@ export default function LoginForm({ isLoggedIn, setIsLoggedIn, loginCheck }) {
         console.log(isLoggedIn);
       })
       .catch(function (error) {
-        initForm();
+        resetForm();
         alert("로그인 실패!");
         console.log(error);
       });
