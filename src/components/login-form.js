@@ -41,27 +41,28 @@ export default function LoginForm({ isLoggedIn, setIsLoggedIn, loginCheck }) {
 
   return (
     <Wrapper>
-      <LoginLabel>로그인</LoginLabel>
-      <InfoInputArea>
-        <EmailInputArea>
-          <EmailLabel>EMAIL</EmailLabel>
-          <EmailInput
+      <Title>로그인</Title>
+      <InputWrapper>
+        <Row>
+          <Label>EMAIL</Label>
+          <Input
             name="email"
+            type="text"
             value={form.email}
             onChange={handleFormChange}
           />
-        </EmailInputArea>
-        <PasswordInputArea>
-          <PasswordLabel>PASSWORD</PasswordLabel>
-          <PasswordInput
+        </Row>
+        <Row>
+          <Label>PASSWORD</Label>
+          <Input
             name="password"
             value={form.password}
             onChange={handleFormChange}
             type="password"
           />
-        </PasswordInputArea>
-      </InfoInputArea>
-      <Submit onClick={handleSubmit}>로그인</Submit>
+        </Row>
+      </InputWrapper>
+      <SubmitButton onClick={handleSubmit}>로그인</SubmitButton>
     </Wrapper>
   );
 }
@@ -75,39 +76,27 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const LoginLabel = styled.p`
+const Title = styled.p`
   font-weight: bold;
 `;
-const InfoInputArea = styled.div`
+const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 `;
-const EmailInputArea = styled.div`
+const Row = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 `;
-const EmailInput = styled.input`
+const Input = styled.input`
   width: 50rem;
   height: 3rem;
 `;
-const EmailLabel = styled.p`
+const Label = styled.label`
   font-size: 12px;
 `;
-const PasswordInput = styled.input`
-  width: 50rem;
-  height: 3rem;
-`;
-const PasswordInputArea = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-const PasswordLabel = styled.p`
-  font-size: 12px;
-`;
-const Submit = styled.button`
+const SubmitButton = styled.button`
   display: block;
   margin-left: auto;
   font-size: 1.8rem;
