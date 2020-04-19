@@ -7,9 +7,7 @@ export default function CandidateForm(props) {
 
   const voteCandidate = () => {
     axios
-      .put(process.env.API_HOST + "/candidates/" + id + "/vote/", {
-        params: {},
-      })
+      .put(process.env.API_HOST + `/candidates/${id}/vote/`)
       .then(function (response) {
         console.log(response);
         // return response.data;
