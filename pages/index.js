@@ -6,7 +6,7 @@ import MemorizedLoginForm from "../src/components/login-form";
 import MemorizedVoteForm from "../src/components/vote-form";
 
 export default function Home() {
-  const [isLoggedIn, setLoginStatus] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const loginCheck = () => {
     console.log("login check start");
@@ -17,7 +17,7 @@ export default function Home() {
       return (
         <MemorizedLoginForm
           isLoggedIn={isLoggedIn}
-          setLoginStatus={setLoginStatus}
+          setIsLoggedIn={setIsLoggedIn}
         />
       );
     }

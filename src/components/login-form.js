@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
-export default function LoginForm({ isLoggedIn, setLoginStatus, loginCheck }) {
+export default function LoginForm({ isLoggedIn, setIsLoggedIn, loginCheck }) {
   const [form, setForm] = useState({ email: "", password: "" });
 
   const handleFormChange = (e) => {
@@ -29,7 +29,7 @@ export default function LoginForm({ isLoggedIn, setLoginStatus, loginCheck }) {
       .then(function (response) {
         console.log(response);
         alert("로그인 성공!");
-        setLoginStatus(true);
+        setIsLoggedIn(true);
         console.log(isLoggedIn);
       })
       .catch(function (error) {
@@ -67,7 +67,7 @@ export default function LoginForm({ isLoggedIn, setLoginStatus, loginCheck }) {
 }
 export const MemoizedLoginForm = React.memo(LoginForm);
 const Wrapper = styled.div`
-  width: 100%;
+  width: 100
   min-height: 30rem;
   background-color: white;
   font-size: 18px;
