@@ -72,7 +72,7 @@ const SubTitle = styled.h3`
 const VoteSection = styled.div`
   width: 100%;
   padding: 5rem 10rem;
-  border: 1px solid black initial;
+  border: 1px solid black;
 `;
 const Wrapper = styled.div`
   width: 100%;
