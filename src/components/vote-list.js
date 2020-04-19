@@ -3,7 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 
 export default function VoteList({ name, voteCount, id, i, getCandidateList }) {
-  const Vote = () => {
+  const handleVote = () => {
     axios
       .put(process.env.API_HOST + "/candidates/" + id + "/vote/", {
         params: {},
@@ -26,7 +26,7 @@ export default function VoteList({ name, voteCount, id, i, getCandidateList }) {
       </Candidate>
       <VoteButton
         onClick={() => {
-          Vote();
+          handleVote();
         }}
       >
         투표

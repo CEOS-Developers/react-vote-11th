@@ -19,21 +19,7 @@ export default function VoteForm() {
         console.log(error);
       });
   };
-  const Vote = (candidate) => {
-    axios
-      .put(
-        process.env.API_HOST + "/candidates/" + candidate.id + "/vote/",
-        voteCount
-      )
-      .then(({ data }) => {
-        alert(candidate.name + "님께 투표했습니다!");
-        getCandidates();
-      })
-      .catch(function (error) {
-        console.log(error);
-        alert("실패했습니다!");
-      });
-  };
+
   let i = 1;
   return (
     <Wrapper>
