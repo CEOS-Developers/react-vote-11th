@@ -2,10 +2,31 @@ import React, { useEffect, useState } from "react";
 
 import CandidateForm from "./candidate-form";
 
-import axios from "axios";
 import styled from "styled-components";
+import axios from "axios";
 
 export default function VoteForm(props) {
+  const [candidateList, setCandidateList] = useState([]);
+  const { name, voteCount, rank, id } = candidateList;
+
+  useEffect(() => {
+    getCandidateList();
+  }, [candidateList]);
+
+  const getCandidateList = async () => {
+    const data = await axios
+      .get(process.env.API_HOST + "/candidates/")
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    setCandidateList(data);
+  };
+
+  var i = 1;
+
   return (
     <Wrapper>
       <Header1>
@@ -13,7 +34,19 @@ export default function VoteForm(props) {
       </Header1>
       <Header2>CEOS 프론트엔드 개발자 인기 순위 및 투표 창입니다.</Header2>
       <CandidateListWrapper>
-        <CandidateForm></CandidateForm>
+        {candidateList
+          .sort((a, b) => {
+            return b.voteCount - a.voteCount;
+          })
+          .map((candidate, index) => (
+            <CandidateForm
+              key={JSON.stringify(candidate)}
+              id={candidate._id}
+              rank={i++}
+              name={candidate.name}
+              voteCount={candidate.voteCount}
+            />
+          ))}
       </CandidateListWrapper>
     </Wrapper>
   );
