@@ -10,6 +10,7 @@ export default function CandidateForm(props) {
       .put(process.env.API_HOST + `/candidates/${id}/vote/`)
       .then(function (response) {
         console.log(response);
+        alert(name + "님에게 투표 완료!");
         // return response.data;
       })
       .catch(function (error) {
@@ -26,7 +27,6 @@ export default function CandidateForm(props) {
 
       <VoteBtn
         onClick={() => {
-          alert(name + "님에게 투표 완료!");
           voteCandidate();
         }}
       >
