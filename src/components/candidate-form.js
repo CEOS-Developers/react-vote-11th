@@ -15,9 +15,6 @@ export default function CandidateForm(props) {
       .catch(function (error) {
         console.log(error);
         alert("투표 실패!");
-      })
-      .finally(function () {
-        // always executed
       });
   };
   return (
