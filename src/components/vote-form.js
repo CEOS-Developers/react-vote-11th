@@ -1,54 +1,35 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import styled from "styled-components";
 import CandidateForm from "./candidate-form";
+import { useCandidates } from "./myHooks/candidates";
 
 function VoteForm() {
-  const [candidateList, setCandidateList] = useState(null);
-
-  // useEffect는 렌더링 될때마다 실행, [] 인자에는 바뀔 떄마다 렌더링할 변수가 들어간다
-  // candidates의 값이 바뀔 때마다 렌더링한다.
-  useEffect(() => {
-    takeCandidateList();
-  }, [candidateList]);
-
-  // axois에서 후보자 명단 받아온다.
-
-  const takeCandidateList = async () => {
-    const data = await axios
-      .get(process.env.API_HOST + "/candidates/", {
-        params: {},
-      })
-      .then(function (response) {
-        return response.data;
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .finally(function () {
-        // always executed
-      });
-    setCandidateList(data);
-  };
-  // candidates값이 null이 아니면
-
-  return (
-    <Wrapper>
-      <Title1>
-        <RedText>프론트앤드 인기쟁이</RedText>는 누구?
-      </Title1>
-      <Title2>CEOS 프론트엔드 개발자 인기 순위 및 투표 창입니다.</Title2>
-      <CandidateListWrapper>
-        {candidateList &&
-          candidateList
-            .sort((a, b) => b.voteCount - a.voteCount)
-            .map((candidate, index) => {
-              const { _id: id, name, voteCount } = candidate;
-              return <CandidateForm key={id} rank={index + 1} {...{ name, voteCount, id }} />;
-            })}
-      </CandidateListWrapper>
-    </Wrapper>
-  );
+  const { candidateList, isLoading, error, refetch } = useCandidates();
+  if (error) {
+    console.log(error);
+    <div>{error}</div>;
+  }
+  if (candidateList)
+    return (
+      <Wrapper>
+        <Title1>
+          <RedText>프론트앤드 인기쟁이</RedText>는 누구?
+        </Title1>
+        <Title2>CEOS 프론트엔드 개발자 인기 순위 및 투표 창입니다.</Title2>
+        <CandidateListWrapper>
+          {candidateList &&
+            candidateList
+              .sort((a, b) => b.voteCount - a.voteCount)
+              .map((candidate, index) => {
+                const { _id: id, name, voteCount } = candidate;
+                return (
+                  <CandidateForm key={id} rank={index + 1} {...{ name, voteCount, id, refetch }} />
+                );
+              })}
+        </CandidateListWrapper>
+      </Wrapper>
+    );
+  return <></>;
 }
 
 export default React.memo(VoteForm);

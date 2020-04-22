@@ -3,14 +3,15 @@ import styled from "styled-components";
 import axios from "axios";
 
 export default function CandidateForm(props) {
-  const { name, voteCount, rank, id } = props;
+  const { name, voteCount, rank, id, refetch } = props;
 
-  const voteCandidate = () => {
-    axios
+  const voteCandidate = async () => {
+    await axios
       .put(process.env.API_HOST + `/candidates/${id}/vote/`)
       .then(function (response) {
         console.log(response);
         alert(name + "님에게 투표 완료!");
+        refetch();
         // return response.data;
       })
       .catch(function (error) {
